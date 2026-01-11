@@ -2,7 +2,7 @@
 
 Welcome to my Data Analyst Portfolio! This repository showcases my projects and skills in data analysis, machine learning, predictive modeling, and business intelligence. The portfolio demonstrates hands-on experience with SQL, Python, regression analysis, cohort analysis, A/B testing, clustering, classification models, and AI agent development.
 
-Check out my portfolio here: [Data Analyst Portfolio](https://rafiqnaufal.github.io/DataAnalystPortfolio/)
+Check out my portfolio here: [Data Analyst Portfolio](https://fiqcodes.github.io/DataAnalystPortfolio/)
 
 ## Portfolio Overview
 
