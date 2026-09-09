@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="What turns browsing into bookings? Explore LalaFood's customer behavior, conversion drivers, and retention opportunities with Rafiq Naufal Kastara.">
+  <meta name="theme-color" content="#13795c"><title>LalaFood: From Browsing to Booking | Rafiq Naufal Kastara</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../../assets/lalafood/article.css">
+  <script src="../../assets/lalafood/d3.min.js" defer></script><script src="../../assets/lalafood/data.js" defer></script>
+  <script src="../../assets/lalafood/charts.js" defer></script><script src="../../assets/lalafood/article.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#section-objective">Skip to story</a>
+  <header class="site-header"><a class="author" href="../../index.html#five"><span class="monogram">RK</span><span>Rafiq Naufal Kastara</span></a><a class="project-label" href="#top">LalaFood <span>/ A growth story</span></a><button id="contents-toggle" aria-expanded="false" aria-controls="contents">Contents <span aria-hidden="true">☰</span></button><div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div></header>
+  <nav id="contents" class="contents" aria-label="Table of contents" hidden><div class="contents-heading">The story</div><a href="#section-objective" data-section="objective"><span>01</span>The opportunity</a><a href="#section-audience" data-section="audience"><span>02</span>Who to focus on</a><a href="#section-discovery" data-section="discovery"><span>03</span>Make the choice easier</a><a href="#section-promotions" data-section="promotions"><span>04</span>Offers &amp; membership</a><a href="#section-timing" data-section="timing"><span>05</span>The dinner window</a><a href="#section-modeling" data-section="modeling"><span>06</span>Predicting bookings</a><a href="#section-shap" data-section="shap"><span>07</span>Inside the model</a><a href="#section-retention" data-section="retention"><span>08</span>The second order</a><a href="#section-conclusion" data-section="conclusion"><span>09</span>What to do next</a><a href="#method">Data & method</a></nav>
+  <main id="top">
+    <section class="hero" aria-labelledby="article-title"><img class="hero-image" src="../../images/food.jpg" alt="Browsing restaurants in a food delivery app"><div class="hero-shade"></div><div class="hero-inner"><div class="eyebrow">Food delivery / Data story</div><h1 id="article-title">LalaFood</h1><p class="hero-subtitle">From browsing to booking.</p><p class="hero-deck">What makes someone place an order,<br>and what brings them back?</p><div class="byline">Rafiq Naufal Kastara <span>6 min read</span></div><a class="begin-link" href="#section-objective">Explore the story <span aria-hidden="true">↓</span></a></div></section>
+    <div class="fact-band"><div><strong>329,590</strong><span>Sessions analyzed</span></div><div><strong>25<span>%</span></strong><span>Conversion baseline</span></div><div><strong>28<span>%</span></strong><span>Year-end goal</span></div><div><strong>10</strong><span>Monthly cohorts</span></div></div>
+    <div class="chapter-nav"><a href="#section-audience">01 <span>Understand the customer</span></a><a href="#section-modeling">02 <span>Explain the prediction</span></a><a href="#section-retention">03 <span>Build the next order</span></a></div>
+    <div class="scrolly-layout"><article class="narrative"><section class="story-step" id="section-objective" data-viz="objective" aria-labelledby="heading-objective">
+      <div class="step-copy"><div class="eyebrow">The question <span>01 / 09</span></div>
+      <h2 id="heading-objective">Three more bookings. Every hundred visits.</h2><p>LalaFood wanted to move conversion from <strong>25% to 28%</strong> by the end of 2024. That is a 12% relative increase, starting from its October baseline.</p><p>The question: what would make more people finish an order? Across <strong>329,590 sessions</strong>, the strongest clues were who was browsing, what they saw, and how easy the choice felt.</p>
+      <p class="takeaway">A better discovery experience is the starting point. A second order is the next challenge.</p></div><div class="mobile-viz-slot"></div>
+    </section>
+<section class="story-step" id="section-audience" data-viz="audience" aria-labelledby="heading-audience">
+      <div class="step-copy"><div class="eyebrow">Finding 01 / Audience <span>02 / 09</span></div>
+      <h2 id="heading-audience">Follow the volume, not just the highest rate.</h2><p>Segment B brings <strong>43% of sessions</strong> and converts at <strong>30.42%</strong>. Segment D brings another quarter, but converts at only <strong>18.59%</strong>. Both deserve attention: one already performs well; the other has room to improve.</p><p>Cuisine tells a similar story. Thai food converts at 46.67%, but from just 90 sessions. Rice dishes account for 28.34% of traffic and convert at 24.40%.</p>
+      <p class="takeaway">Small improvements in a large audience can matter more than impressive rates in a tiny one.</p></div><div class="mobile-viz-slot"></div>
+    </section>
+<section class="story-step" id="section-discovery" data-viz="discovery" aria-labelledby="heading-discovery">
+      <div class="step-copy"><div class="eyebrow">Finding 02 / Discovery <span>03 / 09</span></div>
+      <h2 id="heading-discovery">Nearby. Well reviewed. Priced to fit.</h2><p>Restaurants within <strong>2 km convert at 27.98%</strong>. Beyond 10 km, that falls to about 10%. More than half of sessions are already in the nearest band.</p><p>Trust matters too: restaurants with 4-5 stars and over 100 reviews convert at <strong>32.62%</strong>. Strong price bands include IDR 40-50k and 110-120k, while most browsing happens at lower prices.</p>
+      <p class="takeaway">Put nearby, trusted restaurants first, then match the price range to the customer.</p></div><div class="mobile-viz-slot"></div>
+    </section>
+<section class="story-step" id="section-promotions" data-viz="promotions" aria-labelledby="heading-promotions">
+      <div class="step-copy"><div class="eyebrow">Finding 03 / Incentives <span>04 / 09</span></div>
+      <h2 id="heading-promotions">An offer needs to be seen.</h2><p>Sessions with a promotion shown convert at <strong>26.92%</strong>, compared with <strong>1.75%</strong> without one. RPL & MFP promotions lead the offer types at 31.03%.</p><p>GoJek Plus members also convert more often: 27.13% versus 24.91% for non-members. Yet members represent only 18.06% of sessions.</p>
+      <p class="takeaway">Make relevant offers visible and test membership incentives. These are associations, not proof of causal lift.</p></div><div class="mobile-viz-slot"></div>
+    </section>
+<section class="story-step" id="section-timing" data-viz="timing" aria-labelledby="heading-timing">
+      <div class="step-copy"><div class="eyebrow">Finding 04 / Timing <span>05 / 09</span></div>
+      <h2 id="heading-timing">Dinner is the moment to win.</h2><p><strong>Weekday dinner converts at 27.01%</strong> and accounts for 23.06% of sessions. It combines strong intent with substantial traffic.</p><p>Weekend lunch has a similar conversion rate, 26.80%. The opportunity is to pair these high-intent moments with nearby restaurants and time-limited offers.</p>
+      <p class="takeaway">Start with a Weekday Dinner Deals test, reaching customers before the 6-9 PM window.</p></div><div class="mobile-viz-slot"></div>
+    </section>
+<section class="story-step" id="section-modeling" data-viz="modeling" aria-labelledby="heading-modeling">
+      <div class="step-copy"><div class="eyebrow">The model <span>06 / 09</span></div>
+      <h2 id="heading-modeling">Find more likely bookings. Know the trade-off.</h2><p>With roughly three non-bookings for every booking, accuracy alone is not enough. Logistic regression finds just <strong>22.52% of actual bookings</strong>; tuned XGBoost finds <strong>75.62%</strong>.</p><p>The tuned model reaches <strong>82.30% accuracy</strong> and 61.98% precision. It captures more bookings, but produces more false positives than logistic regression.</p>
+      <p class="takeaway">Tuned XGBoost is the stronger candidate when identifying more bookings is the priority.</p></div><div class="mobile-viz-slot"></div>
+    </section>
+<section class="story-step" id="section-shap" data-viz="shap" aria-labelledby="heading-shap">
+      <div class="step-copy"><div class="eyebrow">Model explanation / SHAP <span>07 / 09</span></div>
+      <h2 id="heading-shap">Co-branding and promotions stand out.</h2><p>The model's strongest signal is <strong>co-branding activity over the past six months</strong>. Promotion availability and visibility follow, with distance adding another important signal.</p><p>SHAP measures how much each feature influences predictions. The ranking shows average influence size; the feature explanations describe the patterns behind it.</p>
+      <p class="takeaway">Make the prediction useful: connect the strongest signals to choices the product team can test.</p></div><div class="mobile-viz-slot"></div>
+    </section>
+<section class="story-step" id="section-retention" data-viz="retention" aria-labelledby="heading-retention">
+      <div class="step-copy"><div class="eyebrow">Finding 05 / Retention <span>08 / 09</span></div>
+      <h2 id="heading-retention">The first order is only the beginning.</h2><p>Across cohorts, only <strong>11-29% return in Month 1</strong>. The steepest loss comes immediately after the first transaction, with further erosion around months 4-5.</p><p>New cohort sizes also decline, from 275,386 in June 2024 to 47,587 in March 2025. March is only partially observed, so it is not a full-month comparison.</p>
+      <p class="takeaway">Make the second order easier, then re-engage customers before the later drop-off.</p></div><div class="mobile-viz-slot"></div>
+    </section>
+<section class="story-step" id="section-conclusion" data-viz="conclusion" aria-labelledby="heading-conclusion">
+      <div class="step-copy"><div class="eyebrow">From insight to action <span>09 / 09</span></div>
+      <h2 id="heading-conclusion">Make discovery easier. Give people a reason to return.</h2><p>Test a <strong>Flexible Nearby Restaurants</strong> experience: prioritize restaurants within 2 km, surface trusted options, and keep relevant promotions visible. Pair it with Weekday Dinner Deals and a GoJek Plus trial.</p><p>For retention, reward the second transaction, personalize re-engagement around months 4-5, and offer loyal customers lasting benefits.</p>
+      <p class="takeaway">Measure conversion and repeat orders in A/B tests before a wider rollout. The goal is 28%, not an assumed result.</p></div><div class="mobile-viz-slot"></div>
+    </section></article><aside class="visual-column" aria-label="Interactive analysis"><div id="visual-stage" class="visual-stage"><div class="viz-topline"><span data-ui="category">THE OPPORTUNITY</span><span data-ui="index">01 / 09</span></div><h3 data-ui="title">Three more bookings per hundred</h3><div data-ui="controls" class="viz-controls"></div><div data-ui="chart" class="chart"></div><div data-ui="detail" class="viz-detail" role="status" aria-live="polite"></div><p data-ui="caption" class="viz-caption"></p></div></aside></div>
+    <section id="method" class="sources"><div class="eyebrow">Behind the story</div><h2>Data & method</h2><p>Session analysis, logistic regression, and XGBoost examine booking behavior. Model evaluation uses an 80/20 train-test split. SHAP rankings use mean absolute contributions across the test set; they describe model behavior, not causal effects.</p><p>Monthly cohorts follow users from their first observed transaction. The transaction window runs from June 2024 to March 20, 2025; the final month is incomplete.</p><div class="source-links"><a href="https://drive.google.com/drive/folders/1vgjI2hui6lDXTlIELil41-rIdzHuVYQb?usp=sharing" target="_blank" rel="noopener">Dataset ↗</a><a href="https://colab.research.google.com/drive/1ShAwUs04HRbB5dul35u_ear05RhbzYdd?usp=sharing" target="_blank" rel="noopener">Cohort analysis ↗</a></div></section>
+  </main><footer class="site-footer"><a href="../../index.html#five">← More projects</a><a href="#top">Back to top ↑</a></footer>
+  <noscript><style>.visual-column,.mobile-viz-slot{display:none}.scrolly-layout{display:block}.story-step{min-height:0;max-width:720px;margin:auto;padding:40px 24px}.step-copy{opacity:1}</style></noscript>
+</body></html>
