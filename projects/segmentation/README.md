@@ -5,7 +5,9 @@ A self-contained static article with a distinct editorial design. Open `index.ht
 ## Implementation
 
 - `projects/segmentation/index.html`: narrative, layout, accessible native controls, methodology.
-- `assets/segmentation/article.css`: graphite/white editorial design with red, blue, yellow and teal segment colors, full-width chapters and inline explorations.
+- `assets/segmentation/article.css`: base layout, controls and visualization styling with the original red, blue, yellow and teal segment colors.
+- `assets/segmentation/editorial.css`: lighter editorial theme, serif headings, powder-blue and white surfaces, muted berry accents and a narrower prose column. Chart encodings and controls are unchanged.
+- `assets/segmentation/investor-editorial.png`: AI-generated investment still life with a mutual-fund portfolio, fund documents, ledger, calculator and coins. Decorative cover art, not an actual portfolio, performance claim or evidence about the dataset. Replaces the former cover-only pixel canvas.
 - `assets/segmentation/article.js`: D3 charts, interactions, lazy chart mounting, responsive redraws, keyboard tooltips, reduced-motion support.
 - `assets/segmentation/data.js`: anonymous aggregates, holdout confusion matrices, numeric/category coefficient summaries and explicitly synthetic K-means frames. No user identifiers, record-level predictions, or private source files are shipped.
 - `scripts/build-segmentation.py`: reproducible data reconstruction and supplementary evaluation.

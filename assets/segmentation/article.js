@@ -234,15 +234,6 @@
     $('campaign-comparison').innerHTML=D.segments.map(s=>{const out=campaign(s,reduction,cost);return `<button type="button" class="campaign-result" data-campaign="${s.id}" aria-pressed="${s.id===id}"><span>${s.name}</span><strong style="color:${out.net>=0?colors[3]:'#b13225'}">${rp(out.net)}</strong><small>${reduction===0&&cost===1000?'Baseline net return':'Scenario net return'}</small></button>`;}).join('');
   }
 
-  function cover() {
-    const canvas=$('cover-canvas'),w=canvas.clientWidth,h=canvas.clientHeight,dpr=Math.min(devicePixelRatio||1,2),ctx=canvas.getContext('2d');
-    canvas.width=w*dpr;canvas.height=h*dpr;ctx.scale(dpr,dpr);
-    const mobile=w<=1100, cols=mobile?190:140, pitch=mobile?1.2:3.8, startX=mobile?(w-cols*pitch)/2:w-cols*pitch-70,startY=mobile?h-88:h-270;
-    let index=0;
-    D.segments.forEach(segment=>{ctx.fillStyle=segment.color;for(let i=0;i<segment.count;i++,index++){const px=index%cols,py=Math.floor(index/cols);ctx.globalAlpha=mobile?.5:.85;ctx.fillRect(startX+px*pitch,startY+py*pitch,pitch*.65,pitch*.65);}});
-    ctx.globalAlpha=1;ctx.fillStyle='#c1c1c9';ctx.font='10px monospace';ctx.fillText('7,667 INVESTORS / FOUR SEGMENTS',startX,startY-16);
-  }
-
   const renderers={audience,clustering:kmeans,segments:()=>{segmentProfile();segmentChart();},risk:()=>{risk();signals();},prediction:()=>{logistic();validation();},economics};
   const mounted=new Set();
   const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting&&!mounted.has(e.target.id)){renderers[e.target.id]?.();mounted.add(e.target.id);}}),{rootMargin:'300px 0px'});
@@ -274,7 +265,7 @@
   }
   addEventListener('scroll',()=>{hideTip();if(!ticking){requestAnimationFrame(scrollState);ticking=true;}},{passive:true});
   addEventListener('keydown',e=>{if(e.key==='Escape')hideTip();});
-  let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{cover();mounted.forEach(id=>renderers[id]?.());if($('coefficient-details').open)coefficients();if($('transactions-chart').closest('details').open)transactions();},150);});
-  segmentSelector();cover();scrollState();
+  let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{mounted.forEach(id=>renderers[id]?.());if($('coefficient-details').open)coefficients();if($('transactions-chart').closest('details').open)transactions();},150);});
+  segmentSelector();scrollState();
   window.SegmentationStory={campaign};
 })();
