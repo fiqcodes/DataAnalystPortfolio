@@ -1,0 +1,62 @@
+/* One shared entry control; each article retains its own visual identity. */
+body[data-project] { margin: 0; }
+.project-hero { width: 100%; margin: 0; }
+.project-hero .story-arrow {
+  position: absolute;
+  right: 5%;
+  bottom: 32px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--story-arrow-bg);
+  color: var(--story-arrow-ink);
+  font-size: 18px;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform .2s;
+}
+.project-hero .story-arrow:hover { transform: translateY(3px); }
+.project-hero .story-arrow:focus-visible { outline: 3px solid var(--story-arrow-bg); outline-offset: 5px; }
+[data-project="abc"] { --story-arrow-bg: #235e51; --story-arrow-ink: #fff; }
+[data-project="campaign"] { --story-arrow-bg: #f7e789; --story-arrow-ink: #172a2b; }
+[data-project="segmentation"] { --story-arrow-bg: #843e47; --story-arrow-ink: #fff; }
+[data-project="thelook"] { --story-arrow-bg: #184dd6; --story-arrow-ink: #fff; }
+[data-project="lalafood"] { --story-arrow-bg: #247b91; --story-arrow-ink: #fff; --header: 0px; }
+[data-project="samba"] { --story-arrow-bg: #f9d448; --story-arrow-ink: #153e2c; }
+[data-project="abc"] .project-hero h1 { margin-top: 0; }
+[data-project="abc"] .hero-subtitle { font-size: 42px; line-height: 1.05; margin: 15px 0 0; }
+[data-project="lalafood"] .hero-inner { margin: 0 auto; align-self: flex-start; padding-top: 64px; }
+[data-project="segmentation"] .cover h1 { margin-top: 0; }
+[data-project="samba"] .hero { max-height: calc(100svh - 90px); }
+@media screen and (max-width:720px) {
+  .project-hero .story-arrow { right: 24px; bottom: 24px; width: 48px; height: 48px; }
+  [data-project="abc"] .hero { height: 560px; }
+  [data-project="abc"] .hero>img { height: 50%; }
+  [data-project="abc"] .hero-subtitle { font-size: 36px; margin-top: 10px; }
+  [data-project="campaign"] .hero { height: 560px; }
+  [data-project="campaign"] .hero>img { height: 50%; }
+  [data-project="lalafood"] .hero { height: 520px; }
+  [data-project="lalafood"] .hero-inner { padding: 32px 24px; }
+  [data-project="lalafood"] .hero-image { height: 50%; }
+}
+@media screen and (max-width:700px) {
+  [data-project="segmentation"] .cover { height: 610px; }
+  [data-project="segmentation"] .cover-art { height: 44%; }
+}
+@media screen and (max-width:760px) {
+  [data-project="samba"] .hero { height: 570px; min-height: 0; max-height: none; }
+  [data-project="samba"] .hero>img { position: absolute; bottom: 0; height: 50%; object-position: right bottom; opacity: 1; }
+  [data-project="samba"] .hero-copy { top: 28px; }
+}
+@media screen and (max-width:560px) {
+  [data-project="thelook"] .cover { height: 450px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .project-hero .story-arrow { transition: none; }
+  .project-hero .story-arrow:hover { transform: none; }
+}
+@media print { .project-hero .story-arrow { display: none; } }
