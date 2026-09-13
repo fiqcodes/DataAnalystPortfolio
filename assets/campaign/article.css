@@ -8,3 +8,18 @@
 @media(max-width:370px){.hero h1{font-size:56px}.hero-copy>p:last-child{font-size:15px}.hero-copy{right:20px;bottom:48px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 @media print{.contents,.hero-next,.segments,.test-settings,#tooltip,.footer{display:none}.chapter{padding:30px 0;break-inside:avoid}.hero{height:400px;min-height:0}.wide,.prose{width:95%}details>*{display:block}.model-grid{display:block}.masthead{height:40px}}
+/* Illustrated header; keep the original article typography and palette. */
+@media screen{
+.hero{background:#164b4c}
+.hero>img{object-position:center center}
+.hero-copy{text-shadow:none;bottom:auto;top:48px}
+.photo-note{background:#164b4c;padding:2px 5px;text-shadow:none}
+}
+@media screen and (max-width:720px){
+  .hero{height:660px;min-height:0;max-height:none}
+  .hero>img{top:auto;bottom:0;height:48%;object-position:right center}
+  .hero-copy{left:24px;right:24px;top:28px;bottom:auto}
+  .hero h1{font-size:70px}
+  .hero-copy>p:last-child{font-size:17px}
+}
+@media screen and (max-width:360px){.hero h1{font-size:60px}}

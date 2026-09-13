@@ -7,3 +7,13 @@
 @media(max-width:370px){.cover h1{font-size:68px}.rank-row{grid-template-columns:108px minmax(0,1fr) 57px;gap:8px}.ranking-axis{grid-template-columns:108px 1fr}.pull-quote{display:block}.pull-quote p{margin-top:18px}.cover{min-height:300px}.chapter-heading h2{font-size:32px}.cohort-readout{grid-template-columns:1fr}.cohort-readout p{font-size:12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 @media print{.rail,.controls,.query-actions,.scroll-controls,#tooltip{display:none}.story-layout{display:block;width:95%}.chapter{padding:25px 0;break-inside:avoid}.cover{height:350px;min-height:0}.cohort-scroll{overflow:visible}.cohort-grid{min-width:0}details>*{display:block}.brief{margin:30px auto}}
+/* Frame the menswear scene below the centered title. */
+.cover>img{object-position:center top}
+@media screen and (max-width:560px){
+  .cover{height:490px;min-height:0;background:#dceef9}
+  .cover>img{top:auto;bottom:0;height:64%;object-position:65% bottom}
+}
+@media screen and (min-width:561px){
+  .cover-type{top:14px}
+  .cover h1{font-size:112px;line-height:1;margin-top:4px}
+}
