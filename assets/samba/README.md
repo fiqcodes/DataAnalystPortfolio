@@ -21,3 +21,5 @@ Prompt: Create a wide landscape editorial illustration asset for a Brazilian e-c
 The local D3 v7 runtime and Font Awesome assets are reused without modification.
 
 Header revision, 2026-09-13: edited with the built-in image-generation tool using the previous header as reference. Edit brief: remove facial features from every person, preserving skin tone, hair, silhouette, poses, composition, palette, and the 1774-by-887 panoramic framing. The faceless version replaces `brazil-commerce.png`; article content and visualizations are unchanged.
+
+Second header revision, 2026-09-13: edited with the built-in image-generation tool. Edit brief: replace the women depicted with adult men, including the right-side shopkeeper and pedestrians, while keeping everyone faceless and preserving their poses, the scene, palette and panoramic framing. Saved to `brazil-commerce.png`; no article or chart changes.
