@@ -25,7 +25,7 @@ body[data-project] { margin: 0; }
 [data-project="campaign"] { --story-arrow-bg: #f7e789; --story-arrow-ink: #172a2b; }
 [data-project="segmentation"] { --story-arrow-bg: #843e47; --story-arrow-ink: #fff; }
 [data-project="thelook"] { --story-arrow-bg: #184dd6; --story-arrow-ink: #fff; }
-[data-project="lalafood"] { --story-arrow-bg: #247b91; --story-arrow-ink: #fff; --header: 0px; }
+[data-project="lalafood"] { --story-arrow-bg: #6fc6e0; --story-arrow-ink: #092b20; --header: 0px; }
 [data-project="samba"] { --story-arrow-bg: #f9d448; --story-arrow-ink: #153e2c; }
 [data-project="abc"] .project-hero h1 { margin-top: 0; }
 [data-project="abc"] .hero-subtitle { font-size: 42px; line-height: 1.05; margin: 15px 0 0; }
