@@ -3,7 +3,7 @@
   'use strict';
   const D = window.LALAFOOD_DATA;
   const theme = getComputedStyle(document.documentElement);
-  const C = Object.fromEntries(['accent','secondary','contrast','ink','highlight','faint','wash','selection'].map(key => [key, theme.getPropertyValue('--'+key).trim()]));
+  const C = Object.fromEntries(['accent','secondary','attention','ink','muted','highlight','faint','wash','selection'].map(key => [key, theme.getPropertyValue('--'+key).trim()]));
   const fmt = (n,d=2) => Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
   const month = m => new Date(m+'-01T00:00:00Z').toLocaleDateString('en-US',{month:'short',year:'2-digit',timeZone:'UTC'});
   const pct = n => fmt(n)+'%';
@@ -34,7 +34,7 @@
     const x=d3.scaleLinear().domain([0,options.max||d3.max(rows,d=>d[key])*1.05||1]).nice().range([left,w-right]);
     const y=d3.scaleBand().domain(rows.map(d=>d.label)).range([14,h-34]).padding(.38);
     axis(svg.append('g').attr('transform',`translate(0,${h-34})`),d3.axisBottom(x).ticks(3).tickSize(-(h-48)).tickFormat(v=>options.count?d3.format('~s')(v):v+'%'));
-    const marks=svg.selectAll('.bar').data(rows).join('rect').attr('class','bar').attr('x',left).attr('y',d=>y(d.label)).attr('height',y.bandwidth()).attr('width',d=>x(d[key])-left).attr('rx',2).attr('fill',(d,i)=>d.color|| (i===0?C.accent:C.secondary));
+    const marks=svg.selectAll('.bar').data(rows).join('rect').attr('class','bar').attr('x',left).attr('y',d=>y(d.label)).attr('height',y.bandwidth()).attr('width',d=>x(d[key])-left).attr('rx',2).attr('fill',d=>d.color||C.secondary);
     interactive(marks,c,d=>`${d.label}: ${options.count?fmt(d[key],0):pct(d[key])}${d.count&&!options.count?`; ${fmt(d.count,0)} sessions`:''}.`);
     rows.forEach(d=>{wrap(text(svg,left-12,y(d.label)+y.bandwidth()/2+4,d.label,'','end'),Math.floor((left-14)/6.5));text(svg,x(d[key])+7,y(d.label)+y.bandwidth()/2+4,options.count?fmt(d[key],0):pct(d[key]),'value');});
   }
@@ -76,8 +76,8 @@
       const r=d3.scaleSqrt().domain([0,d3.max(rows,d=>d.count)]).range([4,cuisine?16:22]);
       axis(svg.append('g').attr('transform',`translate(0,${h-m.b})`),d3.axisBottom(x).ticks(4).tickFormat(d=>d+'%'));
       axis(svg.append('g').attr('transform',`translate(${m.l},0)`),d3.axisLeft(y).ticks(4).tickSize(-(w-m.l-m.r)).tickFormat(d=>d+'%'));
-      svg.append('line').attr('x1',m.l).attr('x2',w-m.r).attr('y1',y(25)).attr('y2',y(25)).attr('stroke',C.contrast).attr('stroke-dasharray','4 5');text(svg,w-m.r,y(25)-8,'25% baseline','annotation','end');
-      const marks=svg.selectAll('.bubble').data(rows).join('circle').attr('class','bubble').attr('cx',d=>x(d.share)).attr('cy',d=>y(d.rate)).attr('r',d=>r(d.count)).attr('fill',d=>d.label==='D'?C.contrast:C.accent).attr('fill-opacity',.75).attr('stroke','white').attr('stroke-width',2);
+      svg.append('line').attr('x1',m.l).attr('x2',w-m.r).attr('y1',y(25)).attr('y2',y(25)).attr('stroke',C.muted).attr('stroke-dasharray','4 5');text(svg,w-m.r,y(25)-8,'25% baseline','annotation','end');
+      const marks=svg.selectAll('.bubble').data(rows).join('circle').attr('class','bubble').attr('cx',d=>x(d.share)).attr('cy',d=>y(d.rate)).attr('r',d=>r(d.count)).attr('fill',d=>!cuisine&&d.label==='D'?C.attention:C.accent).attr('fill-opacity',1).attr('stroke','white').attr('stroke-width',2);
       interactive(marks,c,d=>`${d.name}: ${pct(d.rate)} conversion · ${pct(d.share)} of sessions · n=${fmt(d.count,0)}.`);
       const labelled=cuisine?rows.filter(d=>['ANEKA NASI','THAI','MINUMAN'].includes(d.label)):rows;
       labelled.forEach(d=>{
@@ -89,7 +89,7 @@
       });
       text(svg,m.l,16,'Conversion rate','axis-title');text(svg,(m.l+w-m.r)/2,h-5,'Share of all sessions','axis-title','middle');
       c.detail.textContent=cuisine?'Rice dishes: 93,416 sessions. Thai food: 90 sessions. Sample size changes how confidently a rate can be read.':'B combines high volume with high conversion; D combines high volume with room to improve.';
-      c.caption.textContent='Each circle is a customer segment or cuisine. Circle area represents session count.';
+      c.caption.textContent=cuisine?'Circle area represents session count.':'Red highlights D: a large audience below the 25% baseline. Circle area represents session count.';
     },
     discovery(c,s){
       if(s.view==='ratings'){
@@ -116,17 +116,25 @@
         barChart(c,rows);c.detail.textContent='RPL & MFP promotions: 31.03% conversion when shown.';
       }else{
         const member=s.view==='membership',rows=(member?D.membership:D.visibility).map(d=>({...d,label:member?(d.label==='True'?'GoJek Plus':'Non-member'):(d.label==='True'?'Offer shown':'No offer shown')}));
-        const {svg,w,h}=frame(c,290),left=34,right=30,y0=125;
+        const {svg,w,h}=frame(c,280),left=8,right=8;
         const x=d3.scaleLinear().domain([0,35]).range([left,w-right]);
-        axis(svg.append('g').attr('transform',`translate(0,${y0+65})`),d3.axisBottom(x).ticks(4).tickSize(0).tickFormat(v=>v+'%'));
-        svg.append('line').attr('x1',x(rows[0].rate)).attr('x2',x(rows[1].rate)).attr('y1',y0).attr('y2',y0).attr('stroke',C.faint).attr('stroke-width',9).attr('stroke-linecap','round');
-        const marks=svg.selectAll('circle').data(rows).join('circle').attr('cx',d=>x(d.rate)).attr('cy',y0).attr('r',11).attr('fill',(_,i)=>i?C.accent:C.contrast).attr('stroke','white').attr('stroke-width',2);
-        interactive(marks,c,d=>`${d.label}: ${pct(d.rate)} conversion; ${pct(d.share)} of sessions.`);
-        rows.forEach((d,i)=>{const anchor=member?(i?'start':'end'):(i?'end':'start');const lx=member?x(d.rate)+(i?7:-7):x(d.rate);text(svg,lx,y0+(member&&i?40:-28),pct(d.rate),'big-value',anchor);text(svg,lx,y0+(member&&i?58:-8),d.label,'',anchor);});
-        text(svg,w/2,h-26,'Conversion rate','axis-title','middle');
+        const focus=member?'GoJek Plus':'Offer shown';
+        rows.sort((a,b)=>Number(a.label===focus)-Number(b.label===focus));
+        const groups=svg.selectAll('.comparison-row').data(rows).join('g').attr('class','comparison-row').attr('transform',(_,i)=>`translate(0,${22+i*88})`);
+        groups.each(function(d){
+          const g=d3.select(this);
+          text(g,left,0,d.label,'point-label');
+          text(g,w-right,0,pct(d.rate),'value','end');
+          g.append('rect').attr('x',left).attr('y',16).attr('width',x(35)-left).attr('height',24).attr('rx',2).attr('fill',C.wash);
+          g.append('rect').attr('class','comparison-bar').attr('x',left).attr('y',16).attr('width',x(d.rate)-left).attr('height',24).attr('rx',2).attr('fill',d.label===focus?C.accent:C.secondary);
+        });
+        interactive(groups,c,d=>`${d.label}: ${pct(d.rate)} conversion; ${pct(d.share)} of sessions; ${fmt(d.count,0)} sessions.`);
+        axis(svg.append('g').attr('transform','translate(0,184)'),d3.axisBottom(x).tickValues([0,10,20,30]).tickSize(0).tickFormat(v=>v+'%'));
+        text(svg,w/2,221,'Conversion rate','axis-title','middle');
+        text(svg,w/2,h-15,`${fmt(rows[1].rate-rows[0].rate)} percentage points apart`,'value','middle');
         c.detail.textContent=member?'GoJek Plus members represent 18.06% of sessions and convert 8.91% more often, in relative terms.':'Conversion is over 14 times higher in sessions where a promotion is shown.';
       }
-      c.caption.textContent='Observed differences between groups. Testing is needed to establish incremental impact.';
+      c.caption.textContent=(s.view==='types'?'':`Green highlights ${s.view==='membership'?'members':'sessions with an offer shown'}. `)+'Observed differences, not causal effects. Testing is needed to establish incremental impact.';
     },
     timing(c,s){
       const key=s.metric==='share'?'share':'rate';
@@ -134,10 +142,11 @@
       c.detail.textContent='Weekday dinner: 27.01% conversion and 23.06% of sessions.';c.caption.textContent=key==='rate'?'Booking conversion within each day-and-meal group (%).':'Each cell shows its share of all sessions (%).';
     },
     modeling(c,s){
-      const key=s.metric||'recall',rows=D.models.map((d,i)=>({...d,rate:d[key]*100,color:i===2?C.accent:C.secondary}));
+      const key=s.metric||'recall',best=d3.max(D.models,d=>d[key]);
+      const rows=D.models.map(d=>({...d,rate:d[key]*100,color:d[key]===best?C.accent:C.secondary}));
       barChart(c,rows,'rate',{max:100});
       const explain={recall:'Of actual bookings, how many did the model identify?',precision:'Of predicted bookings, how many were actual bookings?',accuracy:'What share of all sessions did the model classify correctly?'};
-      c.detail.textContent=explain[key];c.caption.textContent='Test-set performance. More recall can come at the cost of more false positives.';
+      c.detail.textContent=explain[key];c.caption.textContent='Green highlights the highest '+key+'. Test-set performance; more recall can come at the cost of more false positives.';
     },
     shap(c,s){
       let rows=D.shap.filter(d=>(s.category==='all'||d.category===s.category)&&(s.includeLead||d.id!=='44'));
@@ -150,15 +159,15 @@
       axis(svg.append('g').attr('transform',`translate(0,${h-35})`),d3.axisBottom(x).ticks(3).tickSize(-(h-43)).tickFormat(v=>fmt(v,v<.1?2:1)));
       const groups=svg.selectAll('.shap-row').data(rows).join('g').attr('class',d=>'shap-row'+(d.id===s.feature?' selected':'')).attr('data-feature',d=>d.id);
       groups.append('rect').attr('x',0).attr('y',d=>y(d.id)-4).attr('width',w).attr('height',y.bandwidth()+8).attr('fill',d=>d.id===s.feature?C.selection:'transparent');
-      groups.append('line').attr('x1',left).attr('x2',d=>x(d.value)).attr('y1',d=>y(d.id)+y.bandwidth()/2).attr('y2',d=>y(d.id)+y.bandwidth()/2).attr('stroke',d=>d.category==='Promotion'?C.secondary:C.accent).attr('stroke-width',3);
-      groups.append('circle').attr('cx',d=>x(d.value)).attr('cy',d=>y(d.id)+y.bandwidth()/2).attr('r',5).attr('fill',d=>d.category==='Promotion'?C.secondary:C.accent);
+      groups.append('line').attr('x1',left).attr('x2',d=>x(d.value)).attr('y1',d=>y(d.id)+y.bandwidth()/2).attr('y2',d=>y(d.id)+y.bandwidth()/2).attr('stroke',d=>d.id===s.feature?C.attention:C.secondary).attr('stroke-width',3);
+      groups.append('circle').attr('cx',d=>x(d.value)).attr('cy',d=>y(d.id)+y.bandwidth()/2).attr('r',5).attr('fill',d=>d.id===s.feature?C.attention:C.secondary);
       groups.each(function(d){const g=d3.select(this);wrap(text(g,left-12,y(d.id)+y.bandwidth()/2+4,d.label,'feature-name','end'),Math.floor((left-15)/6.5));text(g,x(d.value)+8,y(d.id)+y.bandwidth()/2+4,fmt(d.value,3),'value');});
       const select=d=>{s.feature=d.id;c.redraw();c.chart.querySelector(`[data-feature="${d.id}"]`)?.focus({preventScroll:true});};
       interactive(groups,c,d=>`${d.label}: ${fmt(d.value,6)} mean absolute SHAP. ${d.direction}.`,select);
       groups.attr('aria-pressed',d=>String(d.id===s.feature));
       const d=rows.find(d=>d.id===s.feature);
       c.detail.replaceChildren();const title=document.createElement('strong');title.textContent=d.label;const p=document.createElement('span');p.textContent=d.description;c.detail.append(title,p);
-      c.caption.textContent='Mean absolute SHAP across the test set, in model log-odds units. Larger means more influence; these values are not probabilities.';
+      c.caption.textContent='Red marks the selected feature. Mean absolute SHAP across the test set, in model log-odds units. Larger means more influence; these values are not probabilities.';
     },
     retention(c,s){
       if(s.view==='acquisition'){
@@ -176,7 +185,7 @@
         interactive(marks,c,d=>`${month(d.month)}, month ${d.age}: ${pct(d.rate)} retained; ${fmt(d.active,0)} users.`);
         c.detail.textContent=`${month(s.cohort)}: ${fmt(rows[0].size,0)} new users.${rows[1]?` Month 1 retention is ${pct(rows[1].rate)}.`:' No later month is observed.'}`;
       }
-      c.caption.textContent=s.view==='curve'?'Selected cohort in red; other cohorts in grey. Month 0 is the first transaction month.':'Cohorts: June 2024-March 2025. Blank cells have no follow-up observation.';
+      c.caption.textContent=s.view==='curve'?'Selected cohort in green; other cohorts in grey. Month 0 is the first transaction month.':'Cohorts: June 2024-March 2025. Blank cells have no follow-up observation.';
     },
     conclusion(c,s){
       const phases=[['discover','First order'],['repeat','Second order'],['loyal','Long-term']];
