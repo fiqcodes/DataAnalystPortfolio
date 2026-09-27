@@ -248,6 +248,7 @@
   $('risk-population').addEventListener('change',()=>{state.risk=$('risk-population').value;risk();});
   $('risk-sort').addEventListener('change',()=>{state.sort=$('risk-sort').value;risk();});
   $('signal-feature').addEventListener('change',()=>{state.signal=$('signal-feature').value;signals();});
+  $('signal-chart').closest('details').addEventListener('toggle',e=>{if(e.target.open)signals();});
   $('logistic-score').addEventListener('input',logistic);
   $('decision-threshold').addEventListener('input',validation);
   $('coefficient-sort').addEventListener('change',coefficients);
