@@ -233,10 +233,11 @@
   function progress() {
     const sections=[...document.querySelectorAll('.chapter')];let current=sections[0].id;
     sections.forEach(s=>{if(s.getBoundingClientRect().top<innerHeight*.38)current=s.id;});
-    document.querySelectorAll('.rail a').forEach(a=>{const active=a.hash===`#${current}`;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
+    document.querySelectorAll('.reading-nav a').forEach(a=>{const active=a.hash===`#${current}`;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
     $('reading-progress').style.setProperty('--progress',`${Math.min(100,Math.max(0,scrollY/(document.documentElement.scrollHeight-innerHeight)*100))}%`);ticking=false;
   }
   addEventListener('scroll',()=>{hideTip();if(!ticking){ticking=true;requestAnimationFrame(progress);}},{passive:true});
   let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{hideTip();portfolio();acquisition();trajectory();scrollButtons();progress();},150);});
+  $('trajectory-chart').closest('details').addEventListener('toggle',e=>{if(e.target.open)trajectory();});
   ranking();portfolio();acquisition();cohortGrid();trajectory();query();progress();
 })();
