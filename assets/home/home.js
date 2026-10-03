@@ -113,13 +113,22 @@
   if (Array.isArray(profile.experience) && profile.experience.length) {
     const content = $('experience-content');
     const marquee = element('div', 'logo-marquee');
+    marquee.setAttribute('aria-label', 'Organizations I have worked with');
+    marquee.tabIndex = 0;
     const track = element('div', 'logo-track');
     const group = element('div', 'logo-group');
     const list = element('div', 'experience-list');
     profile.experience.forEach(item => {
+      const destination = item.url && safeLink(item.url);
+      const logo = element(destination ? 'a' : 'span', 'company-logo' + (item.logoLabel ? ' company-logo-emblem' : ''));
+      logo.setAttribute('aria-label', item.company);
+      if (destination) logo.href = destination;
       if (item.logo && safeLink(item.logo)) {
-        const img = element('img'); img.src = safeLink(item.logo); img.alt = item.company; img.loading = 'lazy'; group.append(img);
-      } else group.append(element('span', 'company-placeholder', item.company));
+        const img = element('img'); img.src = safeLink(item.logo); img.alt = item.company; img.loading = 'lazy'; logo.append(img);
+        if (item.logoLabel) logo.append(element('span', 'company-logo-label', item.logoLabel));
+      } else logo.append(element('span', '', item.company));
+      group.append(logo);
+      if (!item.role && !item.dates && !item.description) return;
       const details = element('details', 'experience-entry');
       const summary = element('summary');
       const row = element('span', 'experience-row');
@@ -131,7 +140,9 @@
       list.append(details);
     });
     const clone = group.cloneNode(true); clone.setAttribute('aria-hidden', 'true');
-    track.append(group, clone); marquee.append(track); content.replaceChildren(marquee, list);
+    clone.querySelectorAll('a').forEach(link => link.tabIndex = -1);
+    track.append(group, clone); marquee.append(track); content.replaceChildren(marquee);
+    if (list.childElementCount) content.append(list);
   }
   if (Array.isArray(profile.certificates) && profile.certificates.length) {
     const grid = element('div', 'certificate-grid');
