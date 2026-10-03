@@ -12,6 +12,11 @@ await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.natur
 const roles=['Data Analyst','Business Intelligence','Data Warehouse','AI Experimenter','Problem Solver'];
 assert.equal(await page.locator('.site-header').count(),0);
 assert.equal(await page.locator('.experience-list').count(),0);
+const logos=page.locator('.logo-group:not([aria-hidden]) .company-logo');
+assert.equal(await logos.count(),8);
+assert.deepEqual(await logos.locator('img').evaluateAll(images=>images.map(i=>i.alt)),['Amartha','Sinar Mas Land','Universitas Indonesia','Knight Frank','Kementerian ATR/BPN','Pemerintah Provinsi DKI Jakarta','PT PAM Lyonnaise Jaya (PALYJA)','RevoU']);
+assert.equal(await page.locator('.logo-group[aria-hidden="true"] a:not([tabindex="-1"])').count(),0);
+assert.equal(await page.locator('.logo-group[aria-hidden="true"]').isVisible(),false);
 assert.equal(await page.locator('.hero-description,.hero-bottom,.about-note,.tiny-label').count(),0);
 assert.equal(await page.locator('.pending-label,#experience .section-heading>a').count(),0);
 assert.equal(await page.locator('#motion-toggle').isVisible(),false);
@@ -36,6 +41,18 @@ await page.screenshot({path:require('node:os').tmpdir()+'/home-'+width+'.png',fu
 if([1440,390].includes(width))await page.screenshot({path:require('node:os').tmpdir()+'/home-hero-'+width+'.png'});
 const badImages=await page.locator('img').evaluateAll(imgs=>imgs.filter(i=>i.complete&&i.naturalWidth===0).map(i=>i.src));assert.deepEqual(badImages,[]);
 }
+await page.setViewportSize({width:1440,height:900});
+await page.locator('#experience').evaluate(e=>e.scrollIntoView());
+await page.screenshot({path:require('node:os').tmpdir()+'/home-logos-desktop.png'});
+await page.setViewportSize({width:390,height:844});
+await page.locator('#experience').evaluate(e=>e.scrollIntoView());
+await page.screenshot({path:require('node:os').tmpdir()+'/home-logos-mobile.png'});
+await page.locator('.logo-marquee').focus();
+await page.keyboard.press('End');
+await logos.last().focus();
+assert.ok(await page.locator('.logo-marquee').evaluate(e=>e.scrollLeft>0),'last logo accessible by keyboard');
+await page.locator('.company-logo:focus').evaluate(e=>e.blur());
+await page.locator('.logo-marquee').evaluate(e=>e.scrollLeft=0);
 await page.setViewportSize({width:1440,height:900});
 for(const [filter,count] of [['analytics',3],['ml',2],['bi',1],['ai',1],['all',7]]){
 await page.click('[data-filter="'+filter+'"]');assert.equal(await page.locator('.project-card:visible').count(),count);assert.equal(await page.locator('#project-count').textContent(),count+' project'+(count===1?'':'s'));
@@ -108,7 +125,7 @@ const reducedPosition=await page.locator('#certificate-content').evaluate(e=>e.s
 await page.waitForTimeout(300);
 assert.equal(await page.locator('#certificate-content').evaluate(e=>e.scrollLeft),reducedPosition,'reduced motion pauses certificate row');
 assert.equal(await page.locator('.certificate-copy').isVisible(),false);
-const nojs=await browser.newPage({javaScriptEnabled:false});await nojs.goto(pathToFileURL(root+'/index.html').href);assert.equal(await nojs.locator('.project-card').count(),7);await nojs.close();
+const nojs=await browser.newPage({javaScriptEnabled:false});await nojs.goto(pathToFileURL(root+'/index.html').href);assert.equal(await nojs.locator('.project-card').count(),7);assert.equal(await nojs.locator('.company-logo').count(),8);await nojs.close();
 console.log('PASS: 8 widths, infographic assets, project filters, desktop icon links, keyboard toolkit controls, email feedback, full role sequence/pause, no-JS projects, populated profile fixtures, no browser errors.');
 }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1)});

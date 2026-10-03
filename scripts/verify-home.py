@@ -59,7 +59,9 @@ conversion = sum(segment['bookings'] for segment in data['segment']) / data['ses
 assert f'{conversion:.2f}%' == '25.31%'
 previews = list((ROOT / 'assets/home/infographics').glob('*.svg'))
 assert len(previews) == 7 and sum(path.stat().st_size for path in previews) < 1_000_000
-assert all('assets/home/infographics/' in src for src in doc.images if src != 'images/profile.jpg')
+assert all(src.startswith(('assets/home/infographics/', 'assets/home/logos/')) for src in doc.images if src != 'images/profile.jpg')
+assert len([src for src in doc.images if src.startswith('assets/home/logos/')]) == 8
+assert 'Company 01' not in html and 'Placeholder company logo row' not in html
 assert 'site-header' not in html and 'hero-description' not in html
 assert 'Company &amp; role details to follow' not in html and 'MY APPROACH' not in html
 print('PASS: balanced HTML, unique IDs, accessible infographic images, local assets, 7 project destinations and descriptive titles, legacy anchors, email, toolkit copy, verified conversion, previews under 1 MB.')
