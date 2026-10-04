@@ -31,6 +31,9 @@ assert.equal(await certificates.count(),9);
 assert.equal(await certificates.locator('.certificate-info p').count(),0);
 assert.equal(await certificates.first().locator('h3').textContent(),'RevoU Full Stack Data Analytics');
 assert.equal(await certificates.nth(7).locator('h3').textContent(),'Internship in Spatial Planning For Regional and National Growth');
+assert.equal(await page.locator('#about a').count(),0);
+assert.match(await page.locator('.about-copy').textContent(),/SmartLook AI agent/);
+assert.match(await page.locator('.about-copy').textContent(),/SQL, Python, dbt, and BigQuery/);
 const certificateContent=await certificates.evaluateAll(cards=>cards.map(card=>({title:card.querySelector('h3').textContent,issuer:card.querySelector('.mono').textContent,date:card.querySelector('p')?.textContent||'',pdf:card.querySelector('a').getAttribute('href'),image:card.querySelector('img').getAttribute('src')})));
 assert.equal(new Set(certificateContent.map(c=>c.pdf)).size,9);
 assert.ok(certificateContent.every(c=>c.pdf.endsWith('.pdf')&&c.image.endsWith('.png')));
@@ -40,7 +43,7 @@ assert.equal(await page.locator('.certificate-copy').isVisible(),false);
 for(const width of [1920,1440,1024,800,768,560,390,320]){
 await page.setViewportSize({width,height:width<600?844:960});await page.evaluate(()=>scrollTo(0,0));await page.waitForTimeout(100);
 assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'overflow '+width);
-const headingOverflow=await page.locator('.project-chrome h3,.skill-title,.skill-domain,.certificate-info h3,.certificate-info p').evaluateAll(nodes=>nodes.some(e=>e.scrollWidth>e.clientWidth+1));assert.equal(headingOverflow,false,'title or toolkit overflow '+width);
+const headingOverflow=await page.locator('.project-chrome h3,.skill-title,.skill-domain,.certificate-info h3,.certificate-info p,.about-copy p').evaluateAll(nodes=>nodes.some(e=>e.scrollWidth>e.clientWidth+1));assert.equal(headingOverflow,false,'title or toolkit overflow '+width);
 const certificateHeights=await certificates.evaluateAll(cards=>cards.map(c=>c.getBoundingClientRect().height));
 assert.ok(Math.max(...certificateHeights)-Math.min(...certificateHeights)<1,'consistent certificate heights '+width);
 assert.equal(await page.locator('.hero').evaluate(e=>e.getBoundingClientRect().top),0);
