@@ -55,7 +55,9 @@ html:not(.js-enabled) #motion-toggle,html:not(.js-enabled) #toolkit-toggle,html:
 .certificate-track{display:flex;width:max-content}
 #certificate-content .certificate-grid{display:flex;gap:24px;width:max-content;padding-right:24px;flex-shrink:0}
 #certificate-content .certificate-card{width:380px;max-width:calc(100vw - 64px);flex-shrink:0;display:flex;flex-direction:column}
-#certificate-content .certificate-card>a{display:block}
+#certificate-content .certificate-card>a{display:flex;flex-direction:column;flex:1}
+#certificate-content .certificate-card img{display:block;aspect-ratio:4/3;height:auto;object-fit:contain;padding:8px;border:1px solid #999}
+#certificate-content .certificate-card>a:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
 #certificate-content .certificate-sheet{height:165px;min-height:165px}
 #certificate-content .certificate-info{flex:1}
 body.motion-paused #certificate-content .certificate-copy{display:none}

@@ -150,12 +150,17 @@
       const card = element('article', 'certificate-card');
       const destination = item.url && safeLink(item.url);
       const container = destination ? element('a') : element('div');
-      if (destination) container.href = destination;
+      if (destination) {
+        container.href = destination;
+        container.target = '_blank';
+        container.rel = 'noopener noreferrer';
+        container.setAttribute('aria-label', `View ${item.title} certificate (PDF, opens in a new tab)`);
+      }
       if (item.image && safeLink(item.image)) {
         const image = element('img'); image.src = safeLink(item.image); image.alt = `${item.title} certificate`; image.loading = 'lazy'; container.append(image);
       }
       const info = element('div', 'certificate-info');
-      info.append(element('span', 'mono', item.issuer), element('h3', '', item.title), element('p', '', item.year));
+      info.append(element('span', 'mono', item.issuer), element('h3', '', item.title));
       container.append(info); card.append(container); grid.append(card);
     });
     $('certificate-content').replaceChildren(grid);

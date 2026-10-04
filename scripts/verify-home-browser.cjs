@@ -26,12 +26,23 @@ assert.equal(await page.locator('.skill-row[open]').count(),0);
 assert.equal(await page.locator('.project-bottom strong').count(),0);
 assert.equal(await page.locator('.project-open', {hasText:'Explore project'}).count(),6);
 assert.equal(await page.locator('#learning-title').textContent(),'Certificates & Training');
-assert.equal(await page.locator('.certificate-grid:not(.certificate-copy) .certificate-card').count(),7);
+const certificates=page.locator('.certificate-grid:not(.certificate-copy) .certificate-card');
+assert.equal(await certificates.count(),9);
+assert.equal(await certificates.locator('.certificate-info p').count(),0);
+assert.equal(await certificates.first().locator('h3').textContent(),'RevoU Full Stack Data Analytics');
+assert.equal(await certificates.nth(7).locator('h3').textContent(),'Internship in Spatial Planning For Regional and National Growth');
+const certificateContent=await certificates.evaluateAll(cards=>cards.map(card=>({title:card.querySelector('h3').textContent,issuer:card.querySelector('.mono').textContent,date:card.querySelector('p')?.textContent||'',pdf:card.querySelector('a').getAttribute('href'),image:card.querySelector('img').getAttribute('src')})));
+assert.equal(new Set(certificateContent.map(c=>c.pdf)).size,9);
+assert.ok(certificateContent.every(c=>c.pdf.endsWith('.pdf')&&c.image.endsWith('.png')));
+assert.equal(await certificates.locator('a[target="_blank"][rel="noopener noreferrer"]').count(),9);
+assert.equal(await page.locator('.certificate-copy a:not([tabindex="-1"])').count(),0);
 assert.equal(await page.locator('.certificate-copy').isVisible(),false);
 for(const width of [1920,1440,1024,800,768,560,390,320]){
 await page.setViewportSize({width,height:width<600?844:960});await page.evaluate(()=>scrollTo(0,0));await page.waitForTimeout(100);
 assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'overflow '+width);
-const headingOverflow=await page.locator('.project-chrome h3,.skill-title,.skill-domain').evaluateAll(nodes=>nodes.some(e=>e.scrollWidth>e.clientWidth+1));assert.equal(headingOverflow,false,'title or toolkit overflow '+width);
+const headingOverflow=await page.locator('.project-chrome h3,.skill-title,.skill-domain,.certificate-info h3,.certificate-info p').evaluateAll(nodes=>nodes.some(e=>e.scrollWidth>e.clientWidth+1));assert.equal(headingOverflow,false,'title or toolkit overflow '+width);
+const certificateHeights=await certificates.evaluateAll(cards=>cards.map(c=>c.getBoundingClientRect().height));
+assert.ok(Math.max(...certificateHeights)-Math.min(...certificateHeights)<1,'consistent certificate heights '+width);
 assert.equal(await page.locator('.hero').evaluate(e=>e.getBoundingClientRect().top),0);
 const portrait=await page.locator('.hero-photo').evaluate(e=>{const p=e.getBoundingClientRect(),c=document.querySelector('.hero-copy').getBoundingClientRect();return{round:getComputedStyle(e).borderRadius,square:Math.abs(p.width-p.height)<1,overlap:p.left<c.right&&p.right>c.left&&p.top<c.bottom&&p.bottom>c.top};});
 assert.equal(portrait.round,'50%');assert.equal(portrait.square,true,'square portrait bounds '+width);assert.equal(portrait.overlap,false,'portrait overlaps title '+width);
@@ -125,7 +136,10 @@ const reducedPosition=await page.locator('#certificate-content').evaluate(e=>e.s
 await page.waitForTimeout(300);
 assert.equal(await page.locator('#certificate-content').evaluate(e=>e.scrollLeft),reducedPosition,'reduced motion pauses certificate row');
 assert.equal(await page.locator('.certificate-copy').isVisible(),false);
-const nojs=await browser.newPage({javaScriptEnabled:false});await nojs.goto(pathToFileURL(root+'/index.html').href);assert.equal(await nojs.locator('.project-card').count(),7);assert.equal(await nojs.locator('.company-logo').count(),8);await nojs.close();
+const nojs=await browser.newPage({javaScriptEnabled:false});await nojs.goto(pathToFileURL(root+'/index.html').href);assert.equal(await nojs.locator('.project-card').count(),7);assert.equal(await nojs.locator('.company-logo').count(),8);
+const fallbackCertificates=await nojs.locator('.certificate-card').evaluateAll(cards=>cards.map(card=>({title:card.querySelector('h3').textContent,issuer:card.querySelector('.mono').textContent,date:card.querySelector('p')?.textContent||'',pdf:new URL(card.querySelector('a').getAttribute('href'),location.href).href,image:new URL(card.querySelector('img').getAttribute('src'),location.href).href})));
+assert.deepEqual(fallbackCertificates,certificateContent,'no-JS certificates match the profile');
+await nojs.close();
 console.log('PASS: 8 widths, infographic assets, project filters, desktop icon links, keyboard toolkit controls, email feedback, full role sequence/pause, no-JS projects, populated profile fixtures, no browser errors.');
 }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1)});

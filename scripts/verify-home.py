@@ -59,7 +59,14 @@ conversion = sum(segment['bookings'] for segment in data['segment']) / data['ses
 assert f'{conversion:.2f}%' == '25.31%'
 previews = list((ROOT / 'assets/home/infographics').glob('*.svg'))
 assert len(previews) == 7 and sum(path.stat().st_size for path in previews) < 1_000_000
-assert all(src.startswith(('assets/home/infographics/', 'assets/home/logos/')) for src in doc.images if src != 'images/profile.jpg')
+assert all(src.startswith(('assets/home/infographics/', 'assets/home/logos/', 'assets/home/certificates/')) for src in doc.images if src != 'images/profile.jpg')
+certificate_images = [src for src in doc.images if src.startswith('assets/home/certificates/')]
+certificate_pdfs = [link for link in doc.links if link.startswith('assets/home/certificates/') and link.endswith('.pdf')]
+assert len(certificate_images) == len(set(certificate_images)) == 9
+assert len(certificate_pdfs) == len(set(certificate_pdfs)) == 9
+assert {Path(src).stem for src in certificate_images} == {Path(src).stem for src in certificate_pdfs}
+assert all((ROOT / path).read_bytes().startswith(b'%PDF-') for path in certificate_pdfs)
+assert 'placeholder-certificate' not in html and 'ISSUER TO FOLLOW' not in html
 assert len([src for src in doc.images if src.startswith('assets/home/logos/')]) == 8
 assert 'Company 01' not in html and 'Placeholder company logo row' not in html
 assert 'site-header' not in html and 'hero-description' not in html
