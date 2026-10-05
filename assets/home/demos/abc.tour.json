@@ -1,0 +1,19 @@
+{
+  "project": "abc",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "closeups": [
+    {
+      "selector": "#market-bars",
+      "scale": 1.4285714285714286,
+      "time": 18.668
+    },
+    {
+      "selector": "#scatter-chart",
+      "scale": 1.169064748201439,
+      "time": 32.304
+    }
+  ]
+}

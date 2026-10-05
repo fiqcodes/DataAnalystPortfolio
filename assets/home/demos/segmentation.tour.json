@@ -1,0 +1,19 @@
+{
+  "project": "segmentation",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "closeups": [
+    {
+      "selector": "#kmeans-chart",
+      "scale": 1.5,
+      "time": 15.917000000000002
+    },
+    {
+      "selector": "#segment-chart",
+      "scale": 1.5,
+      "time": 28.868000000000002
+    }
+  ]
+}

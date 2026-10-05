@@ -1,0 +1,19 @@
+{
+  "project": "lalafood",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "closeups": [
+    {
+      "selector": "#visual-stage [data-ui=\"chart\"]",
+      "scale": 1.55,
+      "time": 13.777999999999999
+    },
+    {
+      "selector": "#visual-stage .heat-table",
+      "scale": 1.55,
+      "time": 23.736
+    }
+  ]
+}

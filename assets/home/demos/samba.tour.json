@@ -1,0 +1,24 @@
+{
+  "project": "samba",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "closeups": [
+    {
+      "selector": "#trend-chart",
+      "scale": 1.5,
+      "time": 31.316
+    }
+  ],
+  "dashboardViews": [
+    {
+      "dashboard": "looker",
+      "time": 7.996
+    },
+    {
+      "dashboard": "tableau",
+      "time": 17.657999999999998
+    }
+  ]
+}

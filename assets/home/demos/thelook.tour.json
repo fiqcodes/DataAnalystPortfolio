@@ -1,0 +1,19 @@
+{
+  "project": "thelook",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "closeups": [
+    {
+      "selector": "#portfolio-chart",
+      "scale": 1.5,
+      "time": 13.881
+    },
+    {
+      "selector": "#cohort-grid",
+      "scale": 1.4778755538912813,
+      "time": 27.526
+    }
+  ]
+}

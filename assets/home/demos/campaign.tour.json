@@ -1,0 +1,19 @@
+{
+  "project": "campaign",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "closeups": [
+    {
+      "selector": "#sales-chart",
+      "scale": 1.2037037037037037,
+      "time": 10.613
+    },
+    {
+      "selector": "#age-chart",
+      "scale": 1.2037037037037037,
+      "time": 28.197
+    }
+  ]
+}
