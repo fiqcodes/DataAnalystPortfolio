@@ -2,6 +2,19 @@
   'use strict';
   document.documentElement.classList.add('js-enabled');
   const $ = id => document.getElementById(id);
+  const runner = document.querySelector('.about-runner');
+  if (runner) {
+    // Keep one full tile beyond the viewport for every phase of the 1200px loop.
+    const resizeScenery = () => {
+      const count = Math.ceil(runner.clientWidth / 1200) + 1;
+      for (const track of runner.querySelectorAll('.runner-landscape, .runner-clouds')) {
+        while (track.children.length < count) track.append(track.firstElementChild.cloneNode(true));
+        while (track.children.length > count) track.lastElementChild.remove();
+      }
+    };
+    resizeScenery();
+    new ResizeObserver(resizeScenery).observe(runner);
+  }
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const motionButton = $('motion-toggle');
   let paused = reduceMotion.matches;
@@ -64,10 +77,40 @@
   filters.forEach(button => button.addEventListener('click', () => {
     const filter = button.dataset.filter;
     filters.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-    cards.forEach(card => { card.hidden = filter !== 'all' && card.dataset.category !== filter; });
+    cards.forEach(card => {
+      card.hidden = filter !== 'all' && card.dataset.category !== filter;
+      if (card.hidden) card.querySelector('video')?.pause();
+      else card.querySelector('video')?.play().catch(() => {});
+    });
     const count = cards.filter(card => !card.hidden).length;
     $('project-count').textContent = `${count} project${count === 1 ? '' : 's'}`;
   }));
+
+  const demos = [...document.querySelectorAll('.project-video video')];
+  demos.forEach(video => {
+    video.muted = true;
+    video.play().catch(() => {});
+    const showError = () => {
+      video.hidden = true;
+      video.parentElement.querySelector('.video-error').hidden = false;
+    };
+    video.addEventListener('error', showError);
+    video.querySelector('source').addEventListener('error', showError);
+  });
+  const resumeDemos = new Set();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      demos.forEach(video => {
+        if (!video.paused) resumeDemos.add(video);
+        video.pause();
+      });
+    } else {
+      resumeDemos.forEach(video => {
+        if (!video.closest('.project-card').hidden) video.play().catch(() => {});
+      });
+      resumeDemos.clear();
+    }
+  });
 
   const navLinks = [...document.querySelectorAll('#main-nav a')];
   const sections = navLinks.map(link => document.querySelector(link.getAttribute('href')));
