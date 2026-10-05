@@ -79,6 +79,26 @@ const steps=[['Ask','Business question','Natural language'],['Query','SQL query'
 steps.forEach(([verb,label,note],i)=>{const x=28+i*258;chart+=rect(x,118,228,158,i===1?'#e5edff':'#f0f3f8')+rect(x,118,228,4,'#1644d8')+text(x+18,161,verb,27,'#1644d8',700)+text(x+18,208,label,22,'#17202b',700)+text(x+18,245,note,18,'#465366');if(i<2)chart+=line(x+234,197,x+252,197,'#1644d8')+`<path d="M${x+246} 191 L${x+252} 197 L${x+246} 203" fill="none" stroke="#1644d8" stroke-width="2"/>`;});
 chart+=text(28,321,'A connected workflow, from question to exploration.',21,'#1644d8',700);
 results.smartlook=chartFrame({title:'AI analytics workflow',accent:'#1644d8',chart,foot:'Workflow overview / text-to-SQL and visual analysis.'});
+// Capability overview verified against https://github.com/fiqcodes/gis-ai-agent.
+chart=text(28,44,'From a location question to satellite insights',25,'#116b64',700)
+  +text(28,74,'Vegetation, urban heat, and land-cover change',18,'#465366');
+const gisSteps=[
+  ['Ask','Region + timeframe','Natural-language prompt'],
+  ['Analyze','Satellite data','Google Earth Engine'],
+  ['Explore','Maps + trends','PDF research reports']
+];
+gisSteps.forEach(([verb,label,note],i)=>{
+  const x=28+i*258;
+  chart+=rect(x,118,228,158,i===1?'#e1f3ed':'#f0f5f5')
+    +rect(x,118,228,4,'#116b64')
+    +text(x+18,161,verb,27,'#116b64',700)
+    +text(x+18,208,label,22,'#17202b',700)
+    +text(x+18,245,note,17,'#465366');
+  if(i<2)chart+=line(x+234,197,x+252,197,'#116b64')
+    +`<path d="M${x+246} 191 L${x+252} 197 L${x+246} 203" fill="none" stroke="#116b64" stroke-width="2"/>`;
+});
+chart+=text(28,321,'Draw a region. Compare years. Investigate the change.',21,'#116b64',700);
+results.orbiview=chartFrame({title:'Orbiview geospatial AI workflow',accent:'#116b64',chart,foot:'LangGraph orchestration / satellite analysis / interactive maps.'});
 fs.mkdirSync(out,{recursive:true});
 for(const [name,svg] of Object.entries(results))fs.writeFileSync(path.join(out,name+'.svg'),svg+'\n');
-console.log('Built 7 data-backed landscape infographics.');
+console.log('Built 8 landscape infographics from project data and documented workflows.');
