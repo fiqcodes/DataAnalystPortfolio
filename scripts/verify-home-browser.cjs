@@ -9,7 +9,8 @@ const page=await browser.newPage({reducedMotion:'reduce'}),errors=[];page.on('pa
 await page.goto(pathToFileURL(root+'/index.html').href);await page.evaluate(()=>document.fonts.ready);
 await page.locator('img[loading="lazy"]').evaluateAll(imgs=>imgs.forEach(i=>i.loading='eager'));
 await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));
-const roles=['Data Analyst','Business Intelligence','Data Warehouse','AI Experimenter','Problem Solver'];
+const roles=['Data Scientist','Data Analyst','Business Intelligence','Data Warehouse','AI Experimenter','Problem Solver'];
+assert.equal(await page.locator('#rotating-title').textContent(),roles[0]);
 assert.equal(await page.locator('.site-header').count(),0);
 assert.equal(await page.locator('.experience-list').count(),0);
 const logos=page.locator('.logo-group:not([aria-hidden]) .company-logo');
@@ -104,7 +105,7 @@ assert.equal(await page.locator('.hero').evaluate(e=>e.getBoundingClientRect().t
 const portrait=await page.locator('.hero-photo').evaluate(e=>{const p=e.getBoundingClientRect(),c=document.querySelector('.hero-copy').getBoundingClientRect();return{round:getComputedStyle(e).borderRadius,square:Math.abs(p.width-p.height)<1,overlap:p.left<c.right&&p.right>c.left&&p.top<c.bottom&&p.bottom>c.top};});
 assert.equal(portrait.round,'50%');assert.equal(portrait.square,true,'square portrait bounds '+width);assert.equal(portrait.overlap,false,'portrait overlaps title '+width);
 for(const role of roles){await page.locator('#rotating-title').evaluate((e,role)=>e.textContent=role,role);assert.equal(await page.locator('.hero-role').evaluate(e=>e.scrollWidth>e.clientWidth),false,'role overflow '+width+' '+role);}
-await page.locator('#rotating-title').evaluate(e=>e.textContent='Data Analyst');
+await page.locator('#rotating-title').evaluate(e=>e.textContent='Data Scientist');
 await page.screenshot({path:require('node:os').tmpdir()+'/home-'+width+'.png',fullPage:true});
 if([1440,390].includes(width))await page.screenshot({path:require('node:os').tmpdir()+'/home-hero-'+width+'.png'});
 const badImages=await page.locator('img').evaluateAll(imgs=>imgs.filter(i=>i.complete&&i.naturalWidth===0).map(i=>i.src));assert.deepEqual(badImages,[]);

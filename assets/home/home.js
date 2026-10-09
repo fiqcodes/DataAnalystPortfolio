@@ -20,7 +20,7 @@
   let paused = reduceMotion.matches;
   let manuallyPaused = false;
   let roleIndex = 0;
-  const identities = ['Data Analyst', 'Business Intelligence', 'Data Warehouse', 'AI Experimenter', 'Problem Solver'];
+  const identities = ['Data Scientist', 'Data Analyst', 'Business Intelligence', 'Data Warehouse', 'AI Experimenter', 'Problem Solver'];
   const roleTitle = $('rotating-title');
   let roleTimer;
   let deleting = true;
