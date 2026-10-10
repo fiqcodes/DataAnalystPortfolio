@@ -8,7 +8,7 @@ My work connects data preparation, business intelligence, statistical analysis, 
 
 **[Explore my portfolio](https://fiqcodes.github.io/DataAnalystPortfolio/) · [Connect on LinkedIn](https://www.linkedin.com/in/rafiqnaufal/) · [Email me](mailto:rafiqnaufal97@gmail.com)**
 
-[![Project showcase: AI agents, dashboards, cohort analysis, experiments, and machine learning](showcase/rafiq-project-showcase.png)](https://fiqcodes.github.io/DataAnalystPortfolio/)
+[![Project showcase: AI agents, dashboards, cohort analysis, experiments, and machine learning](showcase/rafiq-project-showcase-data-scientist.png)](https://fiqcodes.github.io/DataAnalystPortfolio/)
 
 <p align="center">
   <img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white">
@@ -73,7 +73,7 @@ Each case study is an interactive web article with visual evidence and analysis,
   </tr>
   <tr>
     <td width="50%" valign="top"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/segmentation/"><img src="assets/home/readme/segmentation.png" alt="Interactive K-Means customer segmentation visualization" width="100%"></a><br><strong>Segmentation & churn</strong><br>Translate behavioral patterns into targeting decisions.</td>
-    <td width="50%" valign="top"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/samba/"><img src="assets/home/readme/samba.png" alt="Complete Samba executive dashboard with customer, order, and product metrics" width="100%"></a><br><strong>Executive dashboards</strong><br>Bring business performance into one clear view.</td>
+    <td width="50%" valign="top"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/samba/"><img src="assets/home/readme/samba-sage.png" alt="Complete Samba executive dashboard with customer, order, and product metrics" width="100%"></a><br><strong>Executive dashboards</strong><br>Bring business performance into one clear view.</td>
   </tr>
   <tr>
     <td width="50%" valign="top"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/lalafood/"><img src="assets/home/readme/lalafood.png" alt="Customer conversion analysis with SHAP feature importance" width="100%"></a><br><strong>Customer conversion</strong><br>Explain the signals behind a customer's decision to order.</td>
