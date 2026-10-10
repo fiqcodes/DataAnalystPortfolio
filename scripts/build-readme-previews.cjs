@@ -16,12 +16,13 @@ const root=path.resolve(__dirname,'..');
     await figure.scrollIntoViewIfNeeded();
     const cohort=await figure.screenshot();
     for(const id of ['thelook','campaign','segmentation','samba','lalafood','abc']){
+      if(process.argv[2] && process.argv[2]!==id) continue;
       const src=id==='thelook'?'data:image/png;base64,'+cohort.toString('base64'):pathToFileURL(path.join(root,id==='samba'?'assets/samba/looker-dashboard.jpg':`assets/home/demos/${id}.jpg`)).href;
       await page.goto(pathToFileURL(path.join(root,'index.html')).href);
-      await page.setContent(`<style>*{box-sizing:border-box}body{margin:0;background:white;width:1440px;height:1000px;display:flex;align-items:center;justify-content:center;padding:24px}img{display:block;max-width:100%;max-height:100%;object-fit:contain}</style><img src="${src}" alt="${id}">`);
+      await page.setContent(`<style>*{box-sizing:border-box}body{margin:0;background:${id==='samba'?'#e7efdf':'white'};width:1440px;height:1000px;display:flex;align-items:center;justify-content:center;padding:24px}img{display:block;max-width:100%;max-height:100%;object-fit:contain}</style><img src="${src}" alt="${id}">`);
       await page.locator('img').evaluate(i=>i.decode());
       await page.screenshot({path:path.join(output,id+'.png')});
     }
-    console.log('PASS: six complete previews rendered at 1440 x 1000');
+    console.log('PASS: requested previews rendered at 1440 x 1000');
   }finally{await browser.close()}
 })();
