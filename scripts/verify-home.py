@@ -51,8 +51,8 @@ for link in doc.links:
         assert url.fragment in doc.ids, link
 for project in ['abc', 'lalafood', 'campaign', 'segmentation', 'thelook', 'samba']:
     assert doc.links.count(f'projects/{project}/index.html') >= 1, project
-assert 'https://github.com/fiqcodes/smartlook-ai-agent' in doc.links
-assert 'https://github.com/fiqcodes/gis-ai-agent' in doc.links
+assert 'https://smartlook-ai-agent.vercel.app/' in doc.links
+assert 'https://gis-ai-agent.vercel.app/' in doc.links
 assert html.count('<video ') == 8
 for project in ['abc', 'lalafood', 'campaign', 'segmentation', 'thelook', 'samba']:
     assert f'assets/home/demos/{project}.webm' in doc.links
