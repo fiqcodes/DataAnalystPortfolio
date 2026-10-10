@@ -66,7 +66,7 @@ const data = (file, type) => `data:${type};base64,${fs.readFileSync(file).toStri
     await page.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map(i => i.decode())); });
     const overflow = await page.evaluate(() => document.documentElement.scrollHeight > 1080 || document.documentElement.scrollWidth > 1920);
     if (overflow) throw new Error('Showcase layout overflows');
-    await page.screenshot({ path: path.join(out, 'rafiq-project-showcase-data-scientist.png'), scale: 'css' });
-    console.log('Created showcase/rafiq-project-showcase-data-scientist.png (1920 x 1080)');
+    await page.screenshot({ path: path.join(out, 'rafiq-project-showcase-single-line.png'), scale: 'css' });
+    console.log('Created showcase/rafiq-project-showcase-single-line.png (1920 x 1080)');
   } finally { await browser.close(); }
 })();

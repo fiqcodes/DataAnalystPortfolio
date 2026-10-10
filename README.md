@@ -8,7 +8,7 @@ My work connects data preparation, business intelligence, statistical analysis, 
 
 **[Explore my portfolio](https://fiqcodes.github.io/DataAnalystPortfolio/) · [Connect on LinkedIn](https://www.linkedin.com/in/rafiqnaufal/) · [Email me](mailto:rafiqnaufal97@gmail.com)**
 
-[![Project showcase: AI agents, dashboards, cohort analysis, experiments, and machine learning](showcase/rafiq-project-showcase-data-scientist.png)](https://fiqcodes.github.io/DataAnalystPortfolio/)
+[![Project showcase: AI agents, dashboards, cohort analysis, experiments, and machine learning](showcase/rafiq-project-showcase-single-line.png)](https://fiqcodes.github.io/DataAnalystPortfolio/)
 
 <p align="center">
   <img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white">
