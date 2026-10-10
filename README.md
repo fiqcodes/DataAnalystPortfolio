@@ -68,12 +68,16 @@ Each case study is an interactive web article with visual evidence and analysis,
 
 <table>
   <tr>
-    <td width="50%"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/thelook/"><img src="assets/home/demos/thelook.jpg" alt="TheLook profit-growth analysis with an interactive category comparison" width="100%"></a><br><strong>Retention & product growth</strong><br>Connect customer behavior with commercial priorities.</td>
-    <td width="50%"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/campaign/"><img src="assets/home/demos/campaign.jpg" alt="Promotion sales comparison and weekly trends" width="100%"></a><br><strong>Campaign effectiveness</strong><br>Separate promising results from meaningful differences.</td>
+    <td width="50%" valign="top"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/thelook/"><img src="assets/home/readme/thelook.png" alt="TheLook cohort retention heatmap showing customer return rates by month" width="100%"></a><br><strong>Retention & product growth</strong><br>Connect customer behavior with commercial priorities.</td>
+    <td width="50%" valign="top"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/campaign/"><img src="assets/home/readme/campaign.png" alt="Promotion sales comparison and weekly trends" width="100%"></a><br><strong>Campaign effectiveness</strong><br>Separate promising results from meaningful differences.</td>
   </tr>
   <tr>
-    <td width="50%"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/segmentation/"><img src="assets/home/demos/segmentation.jpg" alt="Interactive K-Means customer segmentation visualization" width="100%"></a><br><strong>Segmentation & churn</strong><br>Translate behavioral patterns into targeting decisions.</td>
-    <td width="50%"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/samba/"><img src="assets/samba/looker-dashboard.jpg" alt="Complete Samba executive dashboard with customer, order, and product metrics" width="100%"></a><br><strong>Executive dashboards</strong><br>Bring business performance into one clear view.</td>
+    <td width="50%" valign="top"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/segmentation/"><img src="assets/home/readme/segmentation.png" alt="Interactive K-Means customer segmentation visualization" width="100%"></a><br><strong>Segmentation & churn</strong><br>Translate behavioral patterns into targeting decisions.</td>
+    <td width="50%" valign="top"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/samba/"><img src="assets/home/readme/samba.png" alt="Complete Samba executive dashboard with customer, order, and product metrics" width="100%"></a><br><strong>Executive dashboards</strong><br>Bring business performance into one clear view.</td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/lalafood/"><img src="assets/home/readme/lalafood.png" alt="Customer conversion analysis with SHAP feature importance" width="100%"></a><br><strong>Customer conversion</strong><br>Explain the signals behind a customer's decision to order.</td>
+    <td width="50%" valign="top"><a href="https://fiqcodes.github.io/DataAnalystPortfolio/projects/abc/"><img src="assets/home/readme/abc.png" alt="Property price analysis with interactive regression visualization" width="100%"></a><br><strong>Property pricing</strong><br>Explore the features behind prices and potential opportunities.</td>
   </tr>
 </table>
 
