@@ -29,7 +29,7 @@ class Document(HTMLParser):
             self.headings += 1
         if tag == 'img':
             assert attrs.get('alt'), 'Image missing alternative text'
-            self.images.append(attrs['src'])
+            self.images.append(attrs['src'].split('?', 1)[0])
 
     def handle_endtag(self, tag):
         assert self.stack and self.stack.pop() == tag, f'Unbalanced HTML: {tag}'
