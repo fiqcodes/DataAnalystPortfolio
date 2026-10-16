@@ -55,6 +55,8 @@ html:not(.js-enabled) #motion-toggle,html:not(.js-enabled) #toolkit-toggle,html:
 @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}body:not(.motion-enabled) *,body:not(.motion-enabled) *:before,body:not(.motion-enabled) *:after{animation:none!important;transition:none!important}body:not(.motion-enabled) .logo-track{transform:none!important}body:not(.motion-enabled) .logo-marquee{overflow:auto}body:not(.motion-enabled) .logo-group[aria-hidden=true]{display:none}}
 @media(min-width:561px) and (max-width:700px){.desktop-shortcuts{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:360px){.shortcut-label{font-size:17px}}
+@media(max-width:560px){.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) 30%;gap:14px;padding-block:40px 24px}.hero-copy{width:auto}.hero-photo{width:100%;max-width:none}.hero h1{font-size:36px}.hero-greeting{font-size:22px}.hero-role{font-size:24px;white-space:normal;min-height:63px;margin-top:14px}}
+@media(max-width:360px){.hero-inner{gap:10px}.hero h1{font-size:30px}.hero-role{font-size:22px;min-height:58px}}
 #certificate-content{overflow-x:auto;overflow-y:hidden;scroll-behavior:auto;padding:4px 0 14px;scrollbar-width:none}
 #certificate-content::-webkit-scrollbar{display:none}
 .certificate-track{display:flex;width:max-content}

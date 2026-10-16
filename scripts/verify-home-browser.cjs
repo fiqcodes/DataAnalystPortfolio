@@ -106,6 +106,7 @@ assert.ok(Math.max(...certificateHeights)-Math.min(...certificateHeights)<1,'con
 assert.equal(await page.locator('.hero').evaluate(e=>e.getBoundingClientRect().top),0);
 const portrait=await page.locator('.hero-photo').evaluate(e=>{const p=e.getBoundingClientRect(),c=document.querySelector('.hero-copy').getBoundingClientRect();return{round:getComputedStyle(e).borderRadius,square:Math.abs(p.width-p.height)<1,overlap:p.left<c.right&&p.right>c.left&&p.top<c.bottom&&p.bottom>c.top};});
 assert.equal(portrait.round,'50%');assert.equal(portrait.square,true,'square portrait bounds '+width);assert.equal(portrait.overlap,false,'portrait overlaps title '+width);
+assert.equal(await page.locator('.hero-photo').evaluate(e=>{const p=e.getBoundingClientRect(),c=document.querySelector('.hero-copy').getBoundingClientRect();return p.left>=c.right&&p.top<c.bottom&&p.bottom>c.top;}),true,'horizontal hero layout '+width);
 for(const role of roles){await page.locator('#rotating-title').evaluate((e,role)=>e.textContent=role,role);assert.equal(await page.locator('.hero-role').evaluate(e=>e.scrollWidth>e.clientWidth),false,'role overflow '+width+' '+role);}
 await page.locator('#rotating-title').evaluate(e=>e.textContent='Data Scientist');
 await page.screenshot({path:require('node:os').tmpdir()+'/home-'+width+'.png',fullPage:true});
